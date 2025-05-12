@@ -1,5 +1,6 @@
 const inputEl = document.getElementById("input-el");
 const inputBtn = document.getElementById("input-btn");
+const deleteBtn = document.getElementById("delete-btn");
 const listEl = document.getElementById("list-el");
 let lista = [];
 
@@ -16,10 +17,22 @@ if (arquivos) {
 }
 
 inputBtn.addEventListener("click", function () {
-  const tarefa = document.createElement("li");
-  tarefa.innerHTML = inputEl.value;
-  listEl.appendChild(tarefa);
-  lista.push(inputEl.value);
-  localStorage.setItem("tarefas", JSON.stringify(lista));
-  inputEl.value = "";
+  if (inputEl.value.trim() === "") {
+    alert("Por favor, insira uma tarefa!");
+    return; // Não faz nada se estiver vazio
+  }
+  {
+    const tarefa = document.createElement("li");
+    tarefa.innerHTML = inputEl.value;
+    listEl.appendChild(tarefa);
+    lista.push(inputEl.value);
+    localStorage.setItem("tarefas", JSON.stringify(lista));
+    inputEl.value = "";
+  }
+});
+
+deleteBtn.addEventListener("click", function () {
+  localStorage.clear();
+  listEl.innerHTML = "";
+  lista = [];
 });
